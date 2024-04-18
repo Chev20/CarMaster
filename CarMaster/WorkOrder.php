@@ -1,5 +1,9 @@
 <?php
-require_once 'Auto.php';
+declare(strict_types=1);
+
+namespace CarMaster;
+
+use CarMaster\Exceptions\WorkOrderValidationException;
 class WorkOrder
 {
     public const STANDARD_HOUR_PRICE = 600;
@@ -9,21 +13,21 @@ class WorkOrder
     private string $completedWork;
     private int $numberOfStandardHours;
     private string $gaveAwayTheCar = 'Petrov V.P.';
-    private string $receivedTheCar;
+    private Client $receivedTheCar;
     private Auto $auto;
     private CarOwner $carOwner;
     private SpareParts $spareParts;
 
     /**
      * @param int $workOrderNumber
-     * @throws Exception
+     * @throws WorkOrderValidationException
      */
     public function setWorkOrderNumber(int $workOrderNumber): void
     {
         $this->workOrderNumber = $workOrderNumber;
         $orderNumberLength = strlen((string)$this->workOrderNumber);
         if ($orderNumberLength !== self::ORDER_NUMBER_LENGTH) {
-            throw new Exception('The work order number must be 10 digits.');
+            throw new WorkOrderValidationException('The work order number must be 10 digits.');
         }
     }
 
@@ -108,17 +112,17 @@ class WorkOrder
     }
 
     /**
-     * @param string $receivedTheCar
+     * @param Client $receivedTheCar
      */
-    public function setReceivedTheCar(string $receivedTheCar): void
+    public function setReceivedTheCar(Client $receivedTheCar): void
     {
         $this->receivedTheCar = $receivedTheCar;
     }
 
     /**
-     * @return string
+     * @return Client
      */
-    public function getReceivedTheCar(): string
+    public function getReceivedTheCar(): Client
     {
         return $this->receivedTheCar;
     }
@@ -163,23 +167,29 @@ class WorkOrder
         return $this->spareParts;
     }
 
-    private function getTotalPrice(): int
+    private function getTotalPrice(): float
     {
         return self::STANDARD_HOUR_PRICE * $this->getNumberOfStandardHours() + $this->getSpareParts()->getMaterialsTotalPrice();
     }
-    public function getWorkOrder()
+    public function getWorkOrder(): array
     {
-        $workOrder = [
+        return [
             'Work order number' => $this->getWorkOrderNumber(),
-//            'Car owner' => $this->getCarOwner()->getFullName(),
             'Date' => $this->getDate(),
             'Service code' => $this->getServiceCode(),
             'Completed work' => $this->getCompletedWork(),
             'Number of standard hours' => $this->getNumberOfStandardHours(),
             'Total price' => $this->getTotalPrice(),
             'Gave away the car' => $this->getGaveAwayTheCar(),
-            'Received the car' => $this->getReceivedTheCar(),
+
         ];
-        return array_merge($this->getAuto()->getFullInfo(), $this->getCarOwner()->getFullInfo(), $this->getSpareParts()->getSparePartsInfo(), $workOrder);
+    }
+    public function getFullInfo(): array
+    {
+        return array_merge(['Auto: ' => $this->getAuto()->getFullInfo(),
+            'Car owner: ' => $this->getCarOwner()->getFullInfo(),
+            'Spare parts: ' => $this->getSpareParts()->getFullInfo(),
+            'Work order: ' => $this->getWorkOrder(),
+            'Received the car:' => $this->getReceivedTheCar()->getFullInfo()]);
     }
 }

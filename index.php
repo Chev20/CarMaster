@@ -1,30 +1,43 @@
 <?php
-require_once 'Auto.php';
-require_once 'CarOwner.php';
-require_once 'WorkOrder.php';
-require_once 'Materials.php';
-require_once 'Consumables.php';
-require_once 'SpareParts.php';
+declare(strict_types=1);
+
+require_once 'autoloader.php';
+
+use CarMaster\Auto;
+use CarMaster\CarOwner;
+use CarMaster\Client;
+use CarMaster\SpareParts;
+use CarMaster\WorkOrder;
+use CarMaster\Exceptions\AutoValidationException;
+use CarMaster\Exceptions\WorkOrderValidationException;
 
 try {
     $firstAuto = new Auto();
-    $firstAuto->setBrand('Honda');
+//    $firstAuto->setBrand('Honda');
+//    $firstAuto->setBrand('');
     $firstAuto->setModel('Civic');
     $firstAuto->setBodyType('sedan');
     $firstAuto->setYearOfIssue(2008);
     $firstAuto->setEngineCapacity(1.8);
-    $firstAuto->setWinNumber('NLAFD78908W350779');
+    $firstAuto->setWinNumber('NLAFD78908W350773');
     $firstAuto->setRegistrationNumber('KE5115AB');
     $firstAuto->setCarMileage(158269);
 
     $carOwner = new CarOwner();
-    $carOwner->setName('Artem');
-    $carOwner->setSurname('Vlasov');
-    $carOwner->setFatherName('Borisovich');
+    $carOwner->setName('Igor');
+    $carOwner->setSurname('Petrenko');
+    $carOwner->setFatherName('Vladislavovich');
     $carOwner->setTelephoneNumber(380660615661);
 
+    $client = new Client();
+    $client->setClientStatus('Personal driver');
+    $client->setName('Artem');
+    $client->setSurname('Vlasov');
+    $client->setFatherName('Borisovich');
+    $client->setTelephoneNumber(380935896357);
+
     $sparePart = new SpareParts();
-    $sparePart->setPartNumber(141516);
+    $sparePart->setPartNumber("141516");
     $sparePart->setName('Ball joint left');
     $sparePart->setCount(1);
     $sparePart->setUnitPrice(987);
@@ -38,12 +51,16 @@ try {
     $workOrder->setNumberOfStandardHours(2);
     $workOrder->setSpareParts($sparePart);
     $workOrder->setGaveAwayTheCar('Voloshin Andrey');
-    $workOrder->setReceivedTheCar('Vlasov Artem');
+    $workOrder->setReceivedTheCar($client);
 
-    foreach ($workOrder->getWorkOrder() as $key => $order) {
-        echo $key . ': ' . $order . "\n";
+    foreach ($workOrder->getFullInfo() as $key => $order) {
+        echo "\n" . $key;
+        foreach ($order as $orderKey => $value){
+            echo "\n" . $orderKey . ': ' . $value;
+        }
     }
-
-} catch (Exception $error) {
-    echo $error;
+} catch (WorkOrderValidationException $e) {
+    echo 'WorkOrder object generated error detected: ' . $e;
+} catch (AutoValidationException $e) {
+    echo 'Auto object generated error detected: ' . $e;
 }

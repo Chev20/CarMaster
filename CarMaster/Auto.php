@@ -1,7 +1,14 @@
 <?php
+declare(strict_types=1);
+
+namespace CarMaster;
+
+use CarMaster\Exceptions\AutoValidationException;
+
 
 class Auto
 {
+    const WIN_NUMBER_LENGTH = 17;
     private string $brand;
     private string $model;
     private string $bodyType;
@@ -12,20 +19,27 @@ class Auto
     private int $carMileage;
 
     /**
-     * @return string
-     */
-    public function getBrand(): string
-    {
-        return $this->brand;
-    }
-
-    /**
      * @param string $brand
      */
     public function setBrand(string $brand): void
     {
+        if (empty($brand)) {
+            throw new AutoValidationException('Brand is empty.');
+        }
         $this->brand = $brand;
     }
+    /**
+     * @return string
+     */
+    public function getBrand(): string
+    {
+        if (!isset($this->brand)) {
+            throw new AutoValidationException('isset brand');
+        }
+        return $this->brand;
+    }
+
+
 
     /**
      * @return string
@@ -62,21 +76,21 @@ class Auto
     /**
      * @return string
      */
-    public function getYearOfIssue(): string
+    public function getYearOfIssue(): int
     {
         return $this->yearOfIssue;
     }
 
     /**
-     * @param string $yearOfIssue
+     * @param int $yearOfIssue
      */
-    public function setYearOfIssue(string $yearOfIssue): void
+    public function setYearOfIssue(int $yearOfIssue): void
     {
         $this->yearOfIssue = $yearOfIssue;
     }
 
     /**
-     * @return int
+     * @return float
      */
     public function getEngineCapacity(): float
     {
@@ -84,7 +98,7 @@ class Auto
     }
 
     /**
-     * @param int $engineCapacity
+     * @param float $engineCapacity
      */
     public function setEngineCapacity(float $engineCapacity): void
     {
@@ -104,6 +118,10 @@ class Auto
     public function setWinNumber(string $winNumber): void
     {
         $this->winNumber = $winNumber;
+        $orderNumberLength = strlen((string)$this->winNumber);
+        if ($orderNumberLength !== self::WIN_NUMBER_LENGTH) {
+            throw new AutoValidationException('The win number must be ' . self::WIN_NUMBER_LENGTH . ' characters long.');
+        }
     }
 
     /**
@@ -149,7 +167,6 @@ class Auto
             'Registration number' => $this->getRegistrationNumber(),
             'Win number' => $this->getWinNumber(),
             'Mileage' => $this->getCarMileage(),
-
         ];
     }
 

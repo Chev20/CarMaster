@@ -1,5 +1,7 @@
 <?php
+declare(strict_types=1);
 
+namespace CarMaster;
 class CarOwner
 {
     private string $name;

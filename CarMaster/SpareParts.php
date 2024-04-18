@@ -1,5 +1,7 @@
 <?php
-require_once 'Materials.php';
+declare(strict_types=1);
+
+namespace CarMaster;
 class SpareParts extends Materials
 {
     private string $partNumber;
@@ -19,12 +21,10 @@ class SpareParts extends Materials
     {
         return $this->partNumber;
     }
-    public function getSparePartsInfo(): array
+    public function getFullInfo(): array
     {
         $fullInfo = parent::getFullInfo();
-
         $partNumber = ['Part number' => $this->getPartNumber()];
-
         return array_merge($partNumber, $fullInfo);
     }
 }

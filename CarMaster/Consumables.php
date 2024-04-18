@@ -1,5 +1,7 @@
 <?php
-require_once 'Materials.php';
+declare(strict_types=1);
+
+namespace CarMaster;
 class Consumables extends Materials
 {
     private int $consumablesCode;
@@ -20,7 +22,7 @@ class Consumables extends Materials
         return $this->consumablesCode;
     }
 
-    private function getConsumablesInfo(): array
+    public function getFullInfo(): array
     {
         $fullInfo = parent::getFullInfo();
         $consumablesCode = ['Consumables code' => $this->getConsumablesCode()];

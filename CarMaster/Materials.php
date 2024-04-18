@@ -1,10 +1,12 @@
 <?php
+declare(strict_types=1);
 
+namespace CarMaster;
 abstract class Materials
 {
     private string $name;
-    private string $count;
-    private string $unitPrice;
+    private int $count;
+    private int $unitPrice;
 
     /**
      * @param string $name
@@ -23,33 +25,33 @@ abstract class Materials
     }
 
     /**
-     * @param string $count
+     * @param int $count
      */
-    public function setCount(string $count): void
+    public function setCount(int $count): void
     {
         $this->count = $count;
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getCount(): string
+    public function getCount(): int
     {
         return $this->count;
     }
 
     /**
-     * @param string $unitPrice
+     * @param int $unitPrice
      */
-    public function setUnitPrice(string $unitPrice): void
+    public function setUnitPrice(int $unitPrice): void
     {
         $this->unitPrice = $unitPrice;
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getUnitPrice(): string
+    public function getUnitPrice(): int
     {
         return $this->unitPrice;
     }
@@ -65,6 +67,5 @@ abstract class Materials
             'Unit price' => $this->getUnitPrice(),
             'Total material price' => $this->getMaterialsTotalPrice(),
         ];
-
     }
 }
