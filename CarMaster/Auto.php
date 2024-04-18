@@ -33,13 +33,8 @@ class Auto
      */
     public function getBrand(): string
     {
-        if (!isset($this->brand)) {
-            throw new AutoValidationException('isset brand');
-        }
         return $this->brand;
     }
-
-
 
     /**
      * @return string
