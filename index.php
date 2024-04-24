@@ -13,7 +13,12 @@ use CarMaster\Exceptions\WorkOrderValidationException;
 
 try {
     $firstAuto = new Auto();
+<<<<<<< HEAD
     $firstAuto->setBrand('Honda');
+=======
+//    $firstAuto->setBrand('Honda');
+    $firstAuto->setBrand('');
+>>>>>>> 3f5e52c2be85b03460f5817391194ec9b4fc3c39
     $firstAuto->setModel('Civic');
     $firstAuto->setBodyType('sedan');
     $firstAuto->setYearOfIssue(2008);
