@@ -31,12 +31,6 @@ class Auto
         return $this->brand;
     }
 
-<<<<<<< HEAD
-=======
-    /**
-     * @return string
-     */
->>>>>>> 3f5e52c2be85b03460f5817391194ec9b4fc3c39
     public function getModel(): string
     {
         return $this->model;
@@ -124,9 +118,6 @@ class Auto
             'Mileage' => $this->getCarMileage(),
         ];
     }
-<<<<<<< HEAD
 }
-=======
 
-}
->>>>>>> 3f5e52c2be85b03460f5817391194ec9b4fc3c39
+
