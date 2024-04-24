@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-require_once 'autoloader.php';
+require "vendor/autoload.php";
 
 use CarMaster\Auto;
 use CarMaster\CarOwner;
@@ -13,8 +13,7 @@ use CarMaster\Exceptions\WorkOrderValidationException;
 
 try {
     $firstAuto = new Auto();
-//    $firstAuto->setBrand('Honda');
-//    $firstAuto->setBrand('');
+    $firstAuto->setBrand('Honda');
     $firstAuto->setModel('Civic');
     $firstAuto->setBodyType('sedan');
     $firstAuto->setYearOfIssue(2008);
@@ -24,10 +23,10 @@ try {
     $firstAuto->setCarMileage(158269);
 
     $carOwner = new CarOwner();
-    $carOwner->setName('Igor');
-    $carOwner->setSurname('Petrenko');
-    $carOwner->setFatherName('Vladislavovich');
-    $carOwner->setTelephoneNumber(380660615661);
+    $carOwner->setName(Faker\Factory::create()->firstName());
+    $carOwner->setSurname(Faker\Factory::create()->lastName);
+    $carOwner->setFatherName('');
+    $carOwner->setTelephoneNumber((int)Faker\Factory::create()->e164PhoneNumber);
 
     $client = new Client();
     $client->setClientStatus('Personal driver');
@@ -59,8 +58,10 @@ try {
             echo "\n" . $orderKey . ': ' . $value;
         }
     }
+
 } catch (WorkOrderValidationException $e) {
     echo 'WorkOrder object generated error detected: ' . $e;
 } catch (AutoValidationException $e) {
     echo 'Auto object generated error detected: ' . $e;
 }
+
