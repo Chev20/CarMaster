@@ -79,7 +79,7 @@ class Auto
     public function setWinNumber(string $winNumber): void
     {
         $this->winNumber = $winNumber;
-        $orderNumberLength = strlen((string)$this->winNumber);
+        $orderNumberLength = strlen($this->winNumber);
         if ($orderNumberLength !== self::WIN_NUMBER_LENGTH) {
             throw new AutoValidationException('The win number must be ' . self::WIN_NUMBER_LENGTH . ' characters long.');
         }
@@ -95,12 +95,12 @@ class Auto
         $this->registrationNumber = $registrationNumber;
     }
 
-    public function getCarMileage(): string
+    public function getMileage(): string
     {
         return $this->carMileage . ' km';
     }
 
-    public function setCarMileage(int $carMileage): void
+    public function setMileage(int $carMileage): void
     {
         $this->carMileage = $carMileage;
     }
@@ -115,7 +115,7 @@ class Auto
             'Engine capacity' => $this->getEngineCapacity(),
             'Registration number' => $this->getRegistrationNumber(),
             'Win number' => $this->getWinNumber(),
-            'Mileage' => $this->getCarMileage(),
+            'Mileage' => $this->getMileage(),
         ];
     }
 }

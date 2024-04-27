@@ -7,12 +7,12 @@ class Consumables extends Materials
 {
     private int $consumablesCode;
 
-    public function setConsumablesCode(int $consumablesCode): void
+    public function setCode(int $consumablesCode): void
     {
         $this->consumablesCode = $consumablesCode;
     }
 
-    public function getConsumablesCode(): int
+    public function getCode(): int
     {
         return $this->consumablesCode;
     }
@@ -20,7 +20,7 @@ class Consumables extends Materials
     public function getFullInfo(): array
     {
         $fullInfo = parent::getFullInfo();
-        $consumablesCode = ['Consumables code' => $this->getConsumablesCode()];
+        $consumablesCode = ['Consumables code' => $this->getCode()];
         return array_merge($consumablesCode, $fullInfo);
     }
 }
