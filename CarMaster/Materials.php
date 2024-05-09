@@ -39,7 +39,7 @@ abstract class Materials
         return $this->unitPrice;
     }
 
-    public function getMaterialsTotalPrice(): float
+    public function getTotalPrice(): float
     {
         return $this->getCount() * $this->getUnitPrice();
     }
@@ -50,7 +50,7 @@ abstract class Materials
             'Material name' => $this->getName(),
             'Count' => $this->getCount(),
             'Unit price' => $this->getUnitPrice(),
-            'Total material price' => $this->getMaterialsTotalPrice(),
+            'Total material price' => $this->getTotalPrice(),
         ];
     }
 }

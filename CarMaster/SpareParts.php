@@ -7,12 +7,12 @@ class SpareParts extends Materials
 {
     private string $partNumber;
 
-    public function setPartNumber(string $partNumber): void
+    public function setNumber(string $partNumber): void
     {
         $this->partNumber = $partNumber;
     }
 
-    public function getPartNumber(): string
+    public function getNumber(): string
     {
         return $this->partNumber;
     }
@@ -20,7 +20,7 @@ class SpareParts extends Materials
     public function getFullInfo(): array
     {
         $fullInfo = parent::getFullInfo();
-        $partNumber = ['Part number' => $this->getPartNumber()];
+        $partNumber = ['Part number' => $this->getNumber()];
         return array_merge($partNumber, $fullInfo);
     }
 }

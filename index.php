@@ -20,7 +20,7 @@ try {
     $firstAuto->setEngineCapacity(1.8);
     $firstAuto->setWinNumber('NLAFD78908W350773');
     $firstAuto->setRegistrationNumber('KE5115AB');
-    $firstAuto->setCarMileage(158269);
+    $firstAuto->setMileage(158269);
 
     $carOwner = new CarOwner();
     $carOwner->setName(Faker\Factory::create()->firstName());
@@ -29,20 +29,20 @@ try {
     $carOwner->setTelephoneNumber((int)Faker\Factory::create()->e164PhoneNumber);
 
     $client = new Client();
-    $client->setClientStatus('Personal driver');
+    $client->setStatus('Personal driver');
     $client->setName('Artem');
     $client->setSurname('Vlasov');
     $client->setFatherName('Borisovich');
     $client->setTelephoneNumber(380935896357);
 
     $sparePart = new SpareParts();
-    $sparePart->setPartNumber("141516");
+    $sparePart->setNumber("141516");
     $sparePart->setName('Ball joint left');
     $sparePart->setCount(1);
     $sparePart->setUnitPrice(987);
 
     $workOrder = new WorkOrder();
-    $workOrder->setWorkOrderNumber(1234567890);
+    $workOrder->setNumber(1234567890);
     $workOrder->setAuto($firstAuto);
     $workOrder->setCarOwner($carOwner);
     $workOrder->setServiceCode(1456);

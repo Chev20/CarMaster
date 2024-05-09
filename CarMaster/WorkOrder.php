@@ -19,7 +19,7 @@ class WorkOrder
     private CarOwner $carOwner;
     private SpareParts $spareParts;
 
-    public function setWorkOrderNumber(int $workOrderNumber): void
+    public function setNumber(int $workOrderNumber): void
     {
         $this->workOrderNumber = $workOrderNumber;
         $orderNumberLength = strlen((string)$this->workOrderNumber);
@@ -28,7 +28,7 @@ class WorkOrder
         }
     }
 
-    public function getWorkOrderNumber(): int
+    public function getNumber(): int
     {
         return $this->workOrderNumber;
     }
@@ -120,13 +120,13 @@ class WorkOrder
 
     private function getTotalPrice(): float
     {
-        return self::STANDARD_HOUR_PRICE * $this->getNumberOfStandardHours() + $this->getSpareParts()->getMaterialsTotalPrice();
+        return self::STANDARD_HOUR_PRICE * $this->getNumberOfStandardHours() + $this->getSpareParts()->getTotalPrice();
     }
 
     public function getWorkOrder(): array
     {
         return [
-            'Work order number' => $this->getWorkOrderNumber(),
+            'Work order number' => $this->getNumber(),
             'Date' => $this->getDate(),
             'Service code' => $this->getServiceCode(),
             'Completed work' => $this->getCompletedWork(),

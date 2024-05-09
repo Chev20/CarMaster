@@ -5,22 +5,22 @@ namespace CarMaster;
 
 class Client extends CarOwner
 {
-    private string $clientStatus;
+    private string $status;
 
-    public function setClientStatus(string $clientStatus): void
+    public function setStatus(string $status): void
     {
-        $this->clientStatus = $clientStatus;
+        $this->status = $status;
     }
 
-    public function getClientStatus(): string
+    public function getStatus(): string
     {
-        return $this->clientStatus;
+        return $this->status;
     }
 
     public function getFullInfo(): array
     {
         $fullInfo = parent::getFullInfo();
-        $clientStatus = ['Client status' => $this->getClientStatus()];
+        $clientStatus = ['Client status' => $this->getStatus()];
         return array_merge($clientStatus, $fullInfo);
     }
 }
