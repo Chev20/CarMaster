@@ -17,6 +17,7 @@ class Auto
     private string $winNumber;
     private string $registrationNumber;
     private int $carMileage;
+    private CarOwner $owner;
 
     public function setBrand(string $brand): void
     {
@@ -105,6 +106,16 @@ class Auto
         $this->carMileage = $carMileage;
     }
 
+    public function getOwner(): CarOwner
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(CarOwner $owner): void
+    {
+        $this->owner = $owner;
+    }
+
     public function getFullInfo(): array
     {
         return [
@@ -116,6 +127,7 @@ class Auto
             'Registration number' => $this->getRegistrationNumber(),
             'Win number' => $this->getWinNumber(),
             'Mileage' => $this->getMileage(),
+            'Owner' => implode(' ', $this->getOwner()->getFullInfo())
         ];
     }
 }

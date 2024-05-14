@@ -5,14 +5,14 @@ namespace CarMaster;
 
 class SpareParts extends Materials
 {
-    private string $partNumber;
+    private array $partNumber;
 
-    public function setNumber(string $partNumber): void
+    public function setNumber(array $partNumber): void
     {
         $this->partNumber = $partNumber;
     }
 
-    public function getNumber(): string
+    public function getNumber(): array
     {
         return $this->partNumber;
     }
@@ -20,7 +20,7 @@ class SpareParts extends Materials
     public function getFullInfo(): array
     {
         $fullInfo = parent::getFullInfo();
-        $partNumber = ['Part number' => $this->getNumber()];
+        $partNumber = ['Part number' => implode($this->getNumber())];
         return array_merge($partNumber, $fullInfo);
     }
 }

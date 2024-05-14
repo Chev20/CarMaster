@@ -5,52 +5,62 @@ namespace CarMaster;
 
 abstract class Materials
 {
-    private string $name;
-    private int $count;
-    private int $unitPrice;
+    private array $name;
+    private array $count;
+    private array $unitPrice;
 
-    public function setName(string $name): void
+    public function setName(array $name): void
     {
         $this->name = $name;
     }
 
-    public function getName(): string
+    public function getName(): array
     {
         return $this->name;
     }
 
-    public function setCount(int $count): void
+    public function setCount(array $count): void
     {
         $this->count = $count;
     }
 
-    public function getCount(): int
+    public function getCount(): array
     {
         return $this->count;
     }
 
-    public function setUnitPrice(int $unitPrice): void
+    public function setUnitPrice(array $unitPrice): void
     {
         $this->unitPrice = $unitPrice;
     }
 
-    public function getUnitPrice(): int
+    public function getUnitPrice(): array
     {
         return $this->unitPrice;
     }
 
-    public function getTotalPrice(): float
+    public function getTotalPrice(): int
     {
-        return $this->getCount() * $this->getUnitPrice();
+        $totalPrice = 0;
+        foreach ($this->getCount() as $countValue)
+        {
+            $price = 0;
+            foreach ($this->getUnitPrice() as $unitPriceValue)
+            {
+                $price = $unitPriceValue * $countValue;
+            }
+            $totalPrice += $price;
+        }
+        return $totalPrice;
     }
 
     public function getFullInfo(): array
     {
         return [
-            'Material name' => $this->getName(),
-            'Count' => $this->getCount(),
-            'Unit price' => $this->getUnitPrice(),
-            'Total material price' => $this->getTotalPrice(),
+            'Materials name' => implode(', ', $this->getName()),
+            'Count' => implode(', ', $this->getCount()),
+            'Unit price' => implode(', ', $this->getUnitPrice()),
+            'Total materials price' => $this->getTotalPrice(),
         ];
     }
 }

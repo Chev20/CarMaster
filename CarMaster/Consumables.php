@@ -5,22 +5,22 @@ namespace CarMaster;
 
 class Consumables extends Materials
 {
-    private int $consumablesCode;
+    private array $consumablesCodes;
 
-    public function setCode(int $consumablesCode): void
+    public function setCodes(array $consumablesCodes): void
     {
-        $this->consumablesCode = $consumablesCode;
+        $this->consumablesCodes = $consumablesCodes;
     }
 
-    public function getCode(): int
+    public function getCodes(): array
     {
-        return $this->consumablesCode;
+        return $this->consumablesCodes;
     }
 
     public function getFullInfo(): array
     {
         $fullInfo = parent::getFullInfo();
-        $consumablesCode = ['Consumables code' => $this->getCode()];
-        return array_merge($consumablesCode, $fullInfo);
+        $consumablesCodes = ['Consumables codes' => $this->getCodes()];
+        return array_merge($consumablesCodes, $fullInfo);
     }
 }

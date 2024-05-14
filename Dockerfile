@@ -29,4 +29,4 @@ RUN if $XDEBUG_ENABLED; then pecl install xdebug \
     ; fi
 
 
-WORKDIR /hillel-php-pro
+WORKDIR /hillel/php-pro

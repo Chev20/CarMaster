@@ -10,9 +10,9 @@ class WorkOrder
     public const STANDARD_HOUR_PRICE = 600;
     public const ORDER_NUMBER_LENGTH = 10;
     private int $workOrderNumber;
-    private int $serviceCode;
-    private string $completedWork;
-    private int $numberOfStandardHours;
+    private array $serviceCodes;
+    private array $completedWorks;
+    private array $numbersOfStandardHours;
     private string $gaveAwayTheCar = 'Petrov V.P.';
     private Client $receivedTheCar;
     private Auto $auto;
@@ -38,34 +38,34 @@ class WorkOrder
         return date("Y-m-d H:i:s");
     }
 
-    public function setServiceCode(int $serviceCode): void
+    public function setServiceCodes(array $serviceCodes): void
     {
-        $this->serviceCode = $serviceCode;
+        $this->serviceCodes = $serviceCodes;
     }
 
-    public function getServiceCode(): int
+    public function getServiceCodes(): array
     {
-        return $this->serviceCode;
+        return $this->serviceCodes;
     }
 
-    public function setCompletedWork(string $completedWork): void
+    public function setCompletedWorks(array $completedWorks): void
     {
-        $this->completedWork = $completedWork;
+        $this->completedWorks = $completedWorks;
     }
 
-    public function getCompletedWork(): string
+    public function getCompletedWorks(): array
     {
-        return $this->completedWork;
+        return $this->completedWorks;
     }
 
-    public function setNumberOfStandardHours(int $numberOfStandardHours): void
+    public function setNumbersOfStandardHours(array $numbersOfStandardHours): void
     {
-        $this->numberOfStandardHours = $numberOfStandardHours;
+        $this->numbersOfStandardHours = $numbersOfStandardHours;
     }
 
-    public function getNumberOfStandardHours(): int
+    public function getNumbersOfStandardHours(): array
     {
-        return $this->numberOfStandardHours;
+        return $this->numbersOfStandardHours;
     }
 
     public function setGaveAwayTheCar(string $gaveAwayTheCar): void
@@ -118,9 +118,11 @@ class WorkOrder
         return $this->spareParts;
     }
 
-    private function getTotalPrice(): float
+    private function getTotalPrice(): float|int
     {
-        return self::STANDARD_HOUR_PRICE * $this->getNumberOfStandardHours() + $this->getSpareParts()->getTotalPrice();
+        $standardHoursPricesArray = array_map(function ($standardHour){return $standardHour * self::STANDARD_HOUR_PRICE;}, $this->getNumbersOfStandardHours());
+        $standardHourPrice = array_sum($standardHoursPricesArray);
+        return $standardHourPrice + $this->getSpareParts()->getTotalPrice();
     }
 
     public function getWorkOrder(): array
@@ -128,20 +130,20 @@ class WorkOrder
         return [
             'Work order number' => $this->getNumber(),
             'Date' => $this->getDate(),
-            'Service code' => $this->getServiceCode(),
-            'Completed work' => $this->getCompletedWork(),
-            'Number of standard hours' => $this->getNumberOfStandardHours(),
+            'Auto' => $this->getAuto()->getFullInfo(),
+            'Service codes' => implode(', ', $this->getServiceCodes()),
+            'Spare parts: ' => $this->getSpareParts()->getFullInfo(),
+            'Completed works' => implode(', ', $this->getCompletedWorks()),
+            'Numbers of standard hours' => implode(', ', $this->getNumbersOfStandardHours()),
             'Total price' => $this->getTotalPrice(),
             'Gave away the car' => $this->getGaveAwayTheCar(),
+            'Received the car:' => implode(' ', $this->getReceivedTheCar()->getFullInfo())
         ];
     }
 
     public function getFullInfo(): array
     {
-        return array_merge(['Auto: ' => $this->getAuto()->getFullInfo(),
-            'Car owner: ' => $this->getCarOwner()->getFullInfo(),
-            'Spare parts: ' => $this->getSpareParts()->getFullInfo(),
-            'Work order: ' => $this->getWorkOrder(),
-            'Received the car:' => $this->getReceivedTheCar()->getFullInfo()]);
+        return ['Work order: ' => $this->getWorkOrder()];
     }
+
 }
