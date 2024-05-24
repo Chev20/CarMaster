@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace CarMaster;
+namespace CarMaster\Entity;
 
-use CarMaster\Exceptions\WorkOrderValidationException;
+use CarMaster\Entity\Exceptions\WorkOrderValidationException;
 
 class WorkOrder
 {

@@ -1,13 +1,24 @@
 <?php
 declare(strict_types=1);
 
-namespace CarMaster;
+namespace CarMaster\Entity;
 class CarOwner
 {
+    private int $id;
     private string $name;
     private string $surname;
     private string $fatherName;
     private int $telephoneNumber;
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
 
     public function setName(string $name): void
     {

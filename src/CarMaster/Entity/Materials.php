@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace CarMaster;
+namespace CarMaster\Entity;
 
 abstract class Materials
 {

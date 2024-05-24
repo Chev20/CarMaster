@@ -1,14 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace CarMaster;
+namespace CarMaster\Entity;
 
-use CarMaster\Exceptions\AutoValidationException;
+use CarMaster\Entity\Exceptions\AutoValidationException;
 
 class Auto
 {
     const WIN_NUMBER_LENGTH = 17;
 
+    private int $id;
     private string $brand;
     private string $model;
     private string $bodyType;
@@ -19,6 +20,15 @@ class Auto
     private int $carMileage;
     private CarOwner $owner;
 
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
     public function setBrand(string $brand): void
     {
         if (empty($brand)) {
