@@ -11,10 +11,13 @@
   ],
   "autoload": {
     "psr-4": {
-      "CarMaster\\": "CarMaster"
+      "CarMaster\\": "src"
     }
   },
   "require-dev": {
     "fakerphp/faker": "^1.23"
+  },
+  "require": {
+    "ext-pdo": "*"
   }
 }

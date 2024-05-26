@@ -64,17 +64,6 @@ VALUES ("Cooling radiator", 2589647, 1, 3500),
        ("Front left ball joint", 141516, 1, 987),
        ("front right ball joint", 141517, 1, 987);
 
-# create table totalPrice
-# (
-#     id int unsigned auto_increment primary key,
-#     standardHourPrice smallint unsigned not null default 600,
-#     numbersOfStandardHours tinyint unsigned not null,
-#     totalMaterialPrice int not null,
-#     totalPrice int not null default standardHourPrice * numbersOfStandardHours + totalMaterialPrice,
-#     FOREIGN KEY (numbersOfStandardHours) references workOrder (id, numbersOfStandardHours),
-#     FOREIGN KEY (totalMaterialPrice) references spareParts (id, totalMaterialPrice)
-# );
-
 create table workOrder
 (
     id int unsigned auto_increment primary key,
@@ -89,7 +78,6 @@ create table workOrder
     gaveAwayTheCar varchar(100) not null DEFAULT "Petrov V.P",
     receivedTheCar_id int unsigned not null,
     FOREIGN KEY (auto_id) references auto (id),
-#     FOREIGN KEY (spareParts_id) references workOrder_spareParts (workOrder_id) ,
     FOREIGN KEY (receivedTheCar_id) references client (id)
 );
 insert into workOrder (workOrderNumber, date, auto_id, serviceCodes, spareParts_id, completedWorks, numbersOfStandardHours, totalPrice, receivedTheCar_id)
