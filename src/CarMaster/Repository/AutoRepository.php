@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace CarMaster\Repository;
 
-use CarMaster\CarMaster\Entity\Auto;
-use CarMaster\CarMaster\Repository\Exception\EntityIdException;
+use CarMaster\Entity\Auto;
+use CarMaster\Repository\Exception\EntityIdException;
 use PDO;
 
 class AutoRepository
@@ -56,7 +56,7 @@ class AutoRepository
         ]);
     }
 
-    public function findByWinNumber(string $winNumber): void
+    public function findByWinNumber(string $winNumber): ?object
     {
         $statement = $this->pdo->prepare(
             'select auto.id, auto.carOwner_id, auto.brand, auto.model, auto.bodyType, auto.yearOfIssue, auto.engineCapacity, auto.winNumber, auto.registrationNumber, auto.carMileage
@@ -65,5 +65,11 @@ class AutoRepository
                      where auto.winNumber = :winNumber;'
         );
         $statement->execute(['winNumber' => $winNumber]);
+
+        $foundAuto = $statement->fetchObject();
+        if (!$foundAuto) {
+            return null;
+        }
+        return $foundAuto;
     }
 }

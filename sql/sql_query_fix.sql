@@ -31,17 +31,19 @@ INSERT IGNORE INTO book (id, name, isbn10, author_id) VALUES (25310, 'Et iusto f
 INSERT IGNORE INTO book (id, name, isbn10, author_id) VALUES (27888, 'Magni et ut.', '1667543172', 1675);
 
 # select author.id, first_name, last_name, count(author.id) as book_count
-                                                                     # from author
-                                                                                # where author.id in
+# from author
+# where author.id in
 #       (select author_id
 #        from book
 #        where author.first_name = 'Zaria'
 #          and author.last_name = 'Barton')
 # group by author.id;
 
-select first_name, last_name, count(book.id) as book_count
+
+explain
+select author.id, author.first_name, author.last_name, count(book.id) as book_count
 from author
-         inner join book on author.id = book.author_id
-where first_name = 'Zaria' and last_name = 'Barton'
-group by first_name, last_name
+inner join book on author.id = book.author_id
+where author.first_name = 'Zaria' and author.last_name = 'Barton'
+group by author.id, author.first_name, author.last_name
 ;

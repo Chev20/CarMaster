@@ -22,7 +22,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
 
 #Setup Xdebug
 ARG XDEBUG_ENABLED=false
-RUN if $XDEBUG_ENABLED; then pecl install xdebug \
+RUN if $XDEBUG_ENABLED; then pecl install xdebug-3.3.2 \
     && docker-php-ext-enable xdebug \
     && echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
     && echo "xdebug.max_nesting_level=1000" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
