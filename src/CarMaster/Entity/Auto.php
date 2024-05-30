@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace CarMaster;
+namespace CarMaster\Entity;
 
-use CarMaster\Exceptions\AutoValidationException;
+use CarMaster\Entity\Exceptions\AutoValidationException;
 
 class Auto
 {

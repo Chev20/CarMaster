@@ -1,15 +1,15 @@
 <?php
 declare(strict_types=1);
 
-require "vendor/autoload.php";
+require dirname(__DIR__) . '/vendor/autoload.php';
 
-use CarMaster\Auto;
-use CarMaster\CarOwner;
-use CarMaster\Client;
-use CarMaster\SpareParts;
-use CarMaster\WorkOrder;
-use CarMaster\Exceptions\AutoValidationException;
-use CarMaster\Exceptions\WorkOrderValidationException;
+use CarMaster\Entity\Auto;
+use CarMaster\Entity\CarOwner;
+use CarMaster\Entity\Client;
+use CarMaster\Entity\Exceptions\AutoValidationException;
+use CarMaster\Entity\Exceptions\WorkOrderValidationException;
+use CarMaster\Entity\SpareParts;
+use CarMaster\Entity\WorkOrder;
 
 try {
     $carOwner = new CarOwner();
@@ -52,8 +52,6 @@ try {
     $workOrder->setSpareParts($sparePart);
     $workOrder->setGaveAwayTheCar('Voloshin Andrey');
     $workOrder->setReceivedTheCar($client);
-
-//    var_dump($workOrder->getFullInfo());
 
     foreach ($workOrder->getFullInfo() as $workOrderKey => $order) {
         echo "\n" . $workOrderKey;
