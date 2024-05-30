@@ -56,7 +56,7 @@ class AutoRepository
         ]);
     }
 
-    public function findByWinNumber(string $winNumber): ?object
+    public function findByWinNumber(string $winNumber): ?Auto
     {
         $statement = $this->pdo->prepare(
             'select auto.id, auto.carOwner_id, auto.brand, auto.model, auto.bodyType, auto.yearOfIssue, auto.engineCapacity, auto.winNumber, auto.registrationNumber, auto.carMileage
@@ -67,9 +67,23 @@ class AutoRepository
         $statement->execute(['winNumber' => $winNumber]);
 
         $foundAuto = $statement->fetchObject();
+
         if (!$foundAuto) {
             return null;
         }
-        return $foundAuto;
+
+        $auto = $foundAuto;
+        $auto->setId($foundAuto->id);
+        $auto->setCarOwner_id($foundAuto->carOwner_id);
+        $auto->setBrand($foundAuto->brand);
+        $auto->setModel($foundAuto->model);
+        $auto->setBodyType($foundAuto->bodyType);
+        $auto->setYearOfIssue($foundAuto->yearOfIssue);
+        $auto->setEngineCapacity($foundAuto->engineCapacity);
+        $auto->setWinNumber($foundAuto->winNumber);
+        $auto->setRegistrationNumber($foundAuto->registrationNumber);
+        $auto->setCarMileage($foundAuto->carMileage);
+
+        return $auto;
     }
 }
